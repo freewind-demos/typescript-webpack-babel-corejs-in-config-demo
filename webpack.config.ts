@@ -1,10 +1,9 @@
 import {Configuration} from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 
 const config: Configuration = {
   mode: "development",
-  entry: './src/entry.ts',
+  entry: './src/hello.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -14,28 +13,25 @@ const config: Configuration = {
   },
   module: {
     rules: [{
-      test: /\.css$/,
-      use: [
-        {loader: 'style-loader'},
-        {loader: 'css-loader'}
-      ]
-    }, {
       test: /\.ts$/,
       use: [{
         loader: 'babel-loader', options: {
-          presets: ['@babel/preset-env']
+          presets: [
+            ['@babel/preset-env', {
+              useBuiltIns: "usage",
+              corejs: {
+                version: 3,
+                proposals: true
+              },
+            }]
+          ]
         }
       }, {
         loader: 'ts-loader',
       }],
       exclude: /node_modules/
     }]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }) as any
-  ]
+  }
 }
 
 export default config;

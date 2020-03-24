@@ -4,7 +4,11 @@
     "target": "es6",
     "module": "commonjs",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "es2019"
+    ]
   },
   "exclude": [
     "node_modules"
